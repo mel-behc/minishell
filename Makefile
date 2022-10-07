@@ -33,6 +33,7 @@ SRC =	minishell.c\
 		simple_command.c\
 		execution.c\
 		shlvl.c\
+		utils_main.c\
 		libft/ft_putstr_fd.c\
 		libft/ft_strchr.c\
 		libft/ft_bzero.c\

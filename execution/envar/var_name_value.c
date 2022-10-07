@@ -46,6 +46,8 @@ static int	length_value(char *variable)
 	int	i;
 
 	i = length_name(variable);
+	if (!variable[i])
+		return (1);
 	while (variable[i])
 		i++;
 	return (i);
@@ -57,12 +59,13 @@ char	*var_value(char *variable)
 	int		length;
 	int		start;
 
+	value = NULL;
 	length = length_value(variable);
 	start = length_name(variable);
 	value = (char *)malloc((sizeof(char) * length) + 1);
 	if (!value)
 		return (NULL);
 	ft_addbackthegarbe(&g_mode.trash, ft_newgarbage(value));
-	ft_strlcpy(value, &variable[start], length);
+	ft_strlcpy(value, &variable[start], length + 1);
 	return (value);
 }

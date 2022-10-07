@@ -13,21 +13,6 @@
 #include "minishell.h"
 #include <signal.h>
 
-void	my_exit(void)
-{
-	rl_on_new_line();
-	rl_redisplay();
-	printf("exit\n");
-	exit (1);
-}
-
-t_args	*ft_corrector(t_args *parse)
-{
-	parse = ft_merge(parse);
-	parse = ft_joiner(parse);
-	return (parse);
-}
-
 static t_args	*lastparse(char *line, t_env *envar)
 {
 	t_tk		*list;
@@ -59,7 +44,6 @@ static void	ft_read_line(t_env *vars)
 		if (cmd && cmd->arg[0])
 			g_mode.g_user_input = ft_strdup(cmd->arg[0]);
 		ft_execution(cmd, &vars);
-		// DONT FORGET 
 		add_history (line);
 		free (line);
 	}

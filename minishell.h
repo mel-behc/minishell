@@ -192,7 +192,7 @@ t_args	*ft_last_arg(t_args *lst);
 
 // MAIN UTILS
 void	my_exit(void);
-
+t_args	*ft_corrector(t_args *parse);
 // free
 void	ft_freegarbe(t_free *list);
 void	ft_addbackthegarbe(t_free **lst, t_free *nv);
