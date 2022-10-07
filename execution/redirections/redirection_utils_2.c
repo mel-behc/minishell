@@ -48,7 +48,7 @@ int	normal_io(t_args *cmd, t_env *vars, int fd1, int fd2)
 	else if (pid == 0)
 	{
 		dup_close(fd1, fd2);
-		if (builtins_executor(cmd, &vars, 0) == 1)
+		if (builtins_executor(cmd, &vars) == 1)
 			ft_execve(cmd, vars);
 		else
 			exit(0);
@@ -67,7 +67,7 @@ int	normal_io(t_args *cmd, t_env *vars, int fd1, int fd2)
 int	pipe_io(t_args *cmd, t_env *vars, int fd1, int fd2)
 {
 	dup_close(fd1, fd2);
-	if (builtins_executor(cmd, &vars, 0) == 1)
+	if (builtins_executor(cmd, &vars) == 1)
 		ft_execve(cmd, vars);
 	else
 		exit(0);

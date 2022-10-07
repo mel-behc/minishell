@@ -14,7 +14,8 @@
 
 static void	ft_case_1(void)
 {
-	write (1, "\n", 2);
+	write (1, "\n", 1);
+	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
 	g_mode.g_exit = 130;
@@ -45,7 +46,7 @@ void	ft_handler(int sig)
 	int	i;
 
 	i = 0;
-	if (sig == SIGINT && g_mode.g_sig == 0)
+	if (sig == SIGINT && g_mode.g_sig == 0 && g_mode.g_fork == 0)
 		ft_case_1();
 	else if (sig == SIGINT && g_mode.g_sig == 2)
 		ft_case_2();

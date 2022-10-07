@@ -271,7 +271,11 @@ void	ft_export(t_args *line, t_env **envar);
 /********************************/
 /*			EXITX				*/
 /********************************/
-void	ft_exit(int status, int pipe);
+void	ft_negativenum(int j, t_args cmd);
+void	ft_postifnum(int j, t_args cmd);
+void	ft_handlelong(t_args cmd);
+void	ft_error(t_args cmd);
+int		ft_exit(t_args cmd);
 
 /********************************/
 /*			EXECVE				*/
@@ -284,7 +288,7 @@ int		ft_execve(t_args *line, t_env *envar);
 /********************************/
 /*			EXECUTE CMD			*/
 /********************************/
-int		builtins_executor(t_args *line, t_env **envar, int pipe);
+int		builtins_executor(t_args *line, t_env **envar);
 int		function_executor(t_args *line, t_env **vars);
 void	simple_command(t_args *line, t_env **vars);
 int		ft_execution(t_args *cmd, t_env **vars);

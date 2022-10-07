@@ -12,38 +12,78 @@
 
 #include "../../minishell.h"
 
-static void	ft_norm(void)
+void	ft_error(t_args cmd)
 {
 	write (1, "exit\n", 5);
-	g_mode.g_exit = 0;
-	exit (0);
+	printf ("Minishell: exit: %s: numeric argument required\n",
+		cmd.arg[1]);
+	exit (1);
 }
 
-int	ft_exit(t_args cmd)
+void	ft_handlelong(t_args cmd)
 {
-	int	i;
 	int	j;
 
-	i = 0;
-	if (cmd.arg[1] && !cmd.arg[2])
+	j = 0;
+	while (cmd.arg[1][j])
 	{
-		while (cmd.arg[1][i])
+		if (!ft_strcmp(cmd.arg[1], "9223372036854775807"))
 		{
-			j = 0;
-			if (cmd.arg[1][j] == '-')
-				ft_negativenum(j, cmd);
+			write (1, "exit\n", 5);
+			g_mode.g_exit = 255;
+			exit (255);
+		}
+		else
+		{
+			g_mode.g_exit = 255;
+			ft_error(cmd);
+		}
+		j++;
+	}
+}
+
+void	ft_negativenum(int j, t_args cmd)
+{
+	int	l;
+
+	l = 0;
+	if (cmd.arg[1][j] == '-')
+	{
+		l = j;
+		while (cmd.arg[1][l])
+		{
+			l++;
+			if (ft_isdigit(cmd.arg[1][l]))
+			{
+				write (1, "exit\n", 5);
+				g_mode.g_exit = 256 + ft_atoi(cmd.arg[1]) % 256;
+				exit (213);
+			}
 			else
-				ft_postifnum(j, cmd);
-			i++;
+				ft_error(cmd);
+			l++;
 		}
 	}
-	else if (cmd.arg[1] && cmd.arg[1])
+}
+
+void	ft_postifnum(int j, t_args cmd)
+{
+	int	len;
+	int	l;
+
+	l = j;
+	len = ft_strlen(cmd.arg[1]);
+	if (len < 19)
 	{
-		printf("exit\n");
-		printf ("Minishell: exit: too many arguments\n");
-		g_mode.g_exit = 127;
+		if (ft_isdigit(cmd.arg[1][l]))
+		{
+			write (1, "exit\n", 5);
+			g_mode.g_exit = ft_atoi(&cmd.arg[1][l]) % 256;
+			exit (ft_atoi(&cmd.arg[1][l]) % 256);
+		}
+		else
+			ft_error(cmd);
 	}
 	else
-		ft_norm();
-	return (0);
+		ft_handlelong(cmd);
 }

@@ -12,7 +12,7 @@
 
 #include "./minishell.h"
 
-int	builtins_executor(t_args *line, t_env **vars, int pipe)
+int	builtins_executor(t_args *line, t_env **vars)
 {
 	if (ft_strncmp(line->arg[0], "echo", 5) == 0)
 		ft_echo(line);
@@ -27,7 +27,7 @@ int	builtins_executor(t_args *line, t_env **vars, int pipe)
 	else if (ft_strncmp(line->arg[0], "export", 7) == 0)
 		ft_export(line, vars);
 	else if (ft_strncmp(line->arg[0], "exit", 5) == 0)
-		ft_exit(g_mode.g_exit, pipe);
+		ft_exit(*line);
 	else
 		return (1);
 	return (0);
@@ -39,15 +39,20 @@ int	function_executor(t_args *line, t_env **vars)
 	int		status;
 
 	g_mode.g_fork = 1;
+	g_mode.g_sig = 1;
 	pid = fork();
 	if (pid == -1)
 		return (1);
 	else if (pid == 0)
+	{
+		g_mode.g_sig = 3;
 		ft_execve(line, *vars);
+	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_mode.g_exit = status % 255;
 	g_mode.g_fork = 0;
+	g_mode.g_sig = 0;
 	return (0);
 }
 
@@ -55,9 +60,9 @@ void	simple_command(t_args *line, t_env **vars)
 {
 	if (!(*vars))
 	{
-		if (builtins_executor(line, vars, 0) == 1)
+		if (builtins_executor(line, vars) == 1)
 			ft_putstr_fd("VAR environment variable not set.\n", 2);
 	}
-	else if (builtins_executor(line, vars, 0) == 1)
+	else if (builtins_executor(line, vars) == 1)
 		function_executor(line, vars);
 }

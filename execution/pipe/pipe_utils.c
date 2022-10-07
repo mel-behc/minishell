@@ -32,7 +32,7 @@ int	type_checker(t_args *tmp, t_env *vars)
 		redirect_io(tmp, vars, 1);
 	else
 	{
-		if (builtins_executor(tmp, &vars, 1) == 1)
+		if (builtins_executor(tmp, &vars) == 1)
 			ft_execve(tmp, vars);
 		else
 			exit(0);

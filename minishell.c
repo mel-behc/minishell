@@ -65,9 +65,13 @@ static void	ft_read_line(t_env *vars)
 	}
 }
 
-static -t_env	*var_list(char **env)
+static t_env	*var_list(char **env)
 {
+	t_env	*envar;
 
+	env = var_list_backup();
+	envar = create_var_list(env);
+	return (envar);
 }
 
 int	main(int ac, char **av, char **env)
@@ -89,10 +93,7 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, ft_handler);
 	signal(SIGQUIT, ft_handler);
 	if (!*env)
-	{
-		env = var_list_backup();
-		envar = create_var_list(env);
-	}
+		envar = var_list(env);
 	else
 		envar = ft_getenv(env);
 	modify_shlvl(envar);

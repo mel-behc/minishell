@@ -68,6 +68,7 @@ SRC =	minishell.c\
 		execution/builtins/pwd.c \
 		execution/builtins/unset.c \
 		execution/builtins/exit.c \
+		execution/builtins/exit_utils.c \
 		execution/execve/execve.c \
 		execution/execve/path.c \
 		execution/execve/tab_arg.c \
