@@ -72,13 +72,17 @@ static char	**sort_vars(t_env *envar)
 
 static void	print_vars(char *name, char *value)
 {
+	int	length;
+
+	length = ft_strlen(name);
 	if (name && value)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(name, 1);
-		if (ft_strlen(value) > 1)
+		if ((name[length - 1] == '=') || ft_strlen(value) > 0)
 		{
-			ft_putstr_fd("=", 1);
+			if (name[length - 1] != '=')
+				ft_putstr_fd("=", 1);
 			ft_putchar_fd('"', 1);
 			ft_putstr_fd(value, 1);
 			ft_putchar_fd('"', 1);

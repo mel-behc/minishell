@@ -19,12 +19,14 @@ static int	length_name(char *variable)
 	i = -1;
 	while (variable[++i])
 	{
-		if (variable[i] == '=')
-			return (i + 1);
+		if (variable[i] == '=' && variable[i + 1])
+			break ;
 		else if (variable[i] == '+')
 			return (i + 2);
 	}
-	return (i);
+	if (variable[i + 1] == '\0')
+		return (i + 1);
+	return (i + 1);
 }
 
 char	*var_name(char *variable)
@@ -46,7 +48,7 @@ static int	length_value(char *variable)
 	int	i;
 
 	i = length_name(variable);
-	if (!variable[i])
+	if (variable[i - 1] == '=' && variable[i] == '\0')
 		return (1);
 	while (variable[i])
 		i++;
@@ -66,6 +68,6 @@ char	*var_value(char *variable)
 	if (!value)
 		return (NULL);
 	ft_addbackthegarbe(&g_mode.trash, ft_newgarbage(value));
-	ft_strlcpy(value, &variable[start], length + 1);
+	ft_strlcpy(value, &variable[start], length);
 	return (value);
 }

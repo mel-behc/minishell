@@ -17,6 +17,8 @@ static int	checker_key(char *var)
 	int	lenght;
 
 	lenght = ft_strlen(var);
+	if (var[lenght - 1] == '=' && var[lenght] == '\0')
+		return (1);
 	if (var[lenght - 1] == '+' && ft_isalpha(var[lenght - 2]) == 1)
 		lenght--;
 	while ((lenght - 1) >= 0)
@@ -24,19 +26,6 @@ static int	checker_key(char *var)
 		if (ft_isalpha(var[lenght - 1]) == 0)
 			return (0);
 		lenght--;
-	}
-	return (1);
-}
-
-static int	checker_value(char *var)
-{
-	int	i;
-
-	i = -1;
-	while (var[++i])
-	{
-		if (var[i] == '+')
-			continue ;
 	}
 	return (1);
 }
@@ -50,11 +39,14 @@ static int	check_var_existance(t_env *envar, char *name, char *value)
 	while (tmp)
 	{
 		length = ft_strlen(tmp->key);
+		if (tmp->key[length - 1] == '=' && tmp->key[length] == '\0')
+		{
+			tmp->value = value;
+			return (1);
+		}
 		if (ft_strncmp(tmp->key, name, length) == 0)
 		{
-			if (name[length] != '+')
-				tmp->value = value;
-			else if (name[length] == '+')
+			if (name[length] == '+')
 				tmp->value = ft_strjoin(tmp->value, value);
 			return (1);
 		}
@@ -75,13 +67,12 @@ static void	add_var(t_args *line, t_env **envar)
 			*envar = create_var_list(&line->arg[1]);
 			(*envar)->next = NULL;
 		}
-		else if ((checker_key(var_name(line->arg[i])) == 1) && \
-				(checker_value(var_value(line->arg[i])) == 1))
+		else if ((checker_key(var_name(line->arg[i])) == 1))
 		{
-			if (!check_var_existance(*envar, var_name(line->arg[i]), \
-						var_value(line->arg[i])))
+			if (check_var_existance(*envar, var_name(line->arg[i]), \
+				var_value(line->arg[i])) == 0)
 				add_node_at_end(envar, var_name(line->arg[i]), \
-						var_value(line->arg[i]));
+					var_value(line->arg[i]));
 		}
 		else
 			print_msg(line->arg[i]);
@@ -95,3 +86,6 @@ void	ft_export(t_args *line, t_env **envar)
 	else
 		add_var(line, envar);
 }
+
+
+//  && (checker_value(var_value(line->arg[i])) == 1)
