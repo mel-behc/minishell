@@ -6,7 +6,7 @@
 /*   By: mel-behc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:27:50 by mel-behc          #+#    #+#             */
-/*   Updated: 2022/10/04 19:18:28 by mel-behc         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:10:33 by mel-behc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	function_executor(t_args *line, t_env **vars)
 	int		status;
 
 	g_mode.g_fork = 1;
-	// ft_putstr_fd("IN THE FUNCTION EXECUTER \n", 2);
 	pid = fork();
 	if (pid == -1)
 		return (1);
@@ -60,8 +59,5 @@ void	simple_command(t_args *line, t_env **vars)
 			ft_putstr_fd("VAR environment variable not set.\n", 2);
 	}
 	else if (builtins_executor(line, vars, 0) == 1)
-	{
-		// ft_putstr_fd("AFTER BUILTINS CHECK \n", 2);
 		function_executor(line, vars);
-	}
 }

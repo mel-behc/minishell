@@ -17,7 +17,6 @@ static char	*pwd_path(void)
 	char	*path;
 	char	*ret;
 
-
 	path = NULL;
 	ret = getcwd(path, sizeof(path));
 	return (ret);
@@ -31,10 +30,9 @@ char	**var_list_backup(void)
 
 	path = pwd_path();
 	tab = allocate_2d_tab(5);
-	length = ft_strlen("OLDPWD");
+	length = ft_strlen("OLDPWD ");
 	tab[0] = allocate_1d_tab(length);
-	ft_strlcpy(tab[0], "OLDPWD", (length + 1));
-	puts(tab[0]);
+	ft_strlcpy(tab[0], "OLDPWD ", (length + 1));
 	length = ft_strlen("PWD=") + ft_strlen(path);
 	tab[1] = allocate_1d_tab(length);
 	ft_strlcpy(tab[1], "PWD=", (ft_strlen("PWD=") + 1));

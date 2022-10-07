@@ -6,7 +6,7 @@
 /*   By: mel-behc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:26:15 by mel-behc          #+#    #+#             */
-/*   Updated: 2022/09/27 17:55:57 by mel-behc         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:48:02 by mel-behc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	**tab_envar(t_env *envar)
 	t_env	*tmp;
 	char	**tab;
 	int		length;
-	// int		counetr;
 	int		i;
 
 	tmp = envar;

@@ -6,7 +6,7 @@
 /*   By: mel-behc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 10:27:42 by mel-behc          #+#    #+#             */
-/*   Updated: 2022/09/27 10:27:43 by mel-behc         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:58:27 by mel-behc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ static void	ft_read_line(t_env *vars)
 		add_history (line);
 		free (line);
 	}
+}
+
+static -t_env	*var_list(char **env)
+{
+
 }
 
 int	main(int ac, char **av, char **env)

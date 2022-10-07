@@ -20,14 +20,11 @@ static int	length_name(char *variable)
 	while (variable[++i])
 	{
 		if (variable[i] == '=')
-			break ;
+			return (i + 1);
 		else if (variable[i] == '+')
-		{
 			return (i + 2);
-			break ;
-		}
 	}
-	return (i + 1);
+	return (i);
 }
 
 char	*var_name(char *variable)
