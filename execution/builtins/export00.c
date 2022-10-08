@@ -79,9 +79,9 @@ static void	print_vars(char *name, char *value)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_putstr_fd(name, 1);
-		if ((name[length - 1] == '=') || ft_strlen(value) > 0)
+		if (ft_strlen(value) > 0)
 		{
-			if (name[length - 1] != '=')
+			if (value[1] != '\0')
 				ft_putstr_fd("=", 1);
 			ft_putchar_fd('"', 1);
 			ft_putstr_fd(value, 1);

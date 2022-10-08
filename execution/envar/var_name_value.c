@@ -48,7 +48,7 @@ static int	length_value(char *variable)
 	int	i;
 
 	i = length_name(variable);
-	if (variable[i - 1] == '=' && variable[i] == '\0')
+	if (variable[i - 1] == '\0')
 		return (1);
 	while (variable[i])
 		i++;

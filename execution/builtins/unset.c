@@ -12,6 +12,27 @@
 
 #include "../../minishell.h"
 
+static void	error_msg(char *var)
+{
+	ft_putstr_fd("minishell: unset: ", 2);
+	ft_putstr_fd(var_name(var), 2);
+	ft_putstr_fd(": not a valid identifier\n", 2);
+	g_mode.g_exit = 1;
+}
+
+static int	var_checker(char *var)
+{
+	int	i;
+
+	i = -1;
+	while (var[++i])
+	{
+		if (ft_isalpha(var[i]) == 0)
+			return (0);
+	}
+	return (1);
+}
+
 static int	delete_from_beginning(char *name, t_env **envar)
 {
 	t_env	*tmp;
@@ -66,10 +87,15 @@ void	ft_unset(t_args *line, t_env **envar)
 	}
 	while (line->arg[++i])
 	{	
-		if (ft_strcmp(line->arg[i], "_") != 0)
+		if (var_checker(line->arg[i]) == 1)
 		{
-			delete_from_beginning(line->arg[i], envar);
-			delete_from_middl(line->arg[i], *envar);
+			if (ft_strcmp(line->arg[i], "_") != 0)
+			{
+				delete_from_beginning(line->arg[i], envar);
+				delete_from_middl(line->arg[i], *envar);
+			}
 		}
+		else
+			error_msg(line->arg[i]);
 	}
 }

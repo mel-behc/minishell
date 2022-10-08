@@ -20,7 +20,7 @@ static void	print_vars(t_env *var)
 	if ((var->key[length - 1] == '=' && var->key[length] == '\0') || ft_strlen(var->value) > 0)
 	{
 		ft_putstr_fd(var->key, 1);
-		if (var->key[length] != '\0')
+		if (var->value[0] != '\0')
 			ft_putchar_fd('=', 1);
 		ft_putstr_fd(var->value, 1);
 		ft_putchar_fd('\n', 1);
