@@ -17,7 +17,8 @@ static int	checker_key(char *var)
 	int	len;
 
 	len = ft_strlen(var);
-	if (ft_isalpha(var[len - 2]) == 1 && var[len - 1] == '=' && var[len] == '\0')
+	if (ft_isalpha(var[len - 2]) == 1 && var[len - 1] == '=' && \
+			var[len] == '\0')
 		return (1);
 	if (var[len - 1] == '+' && ft_isalpha(var[len - 2]) == 1)
 		len--;
@@ -39,13 +40,18 @@ static int	check_var_existance(t_env *envar, char *name, char *value)
 	while (tmp)
 	{
 		length = ft_strlen(tmp->key);
-		if (tmp->key[length - 1] == '=' && tmp->key[length] == '\0')
+		if (name[length] == '=' && name[length + 1] == '\0')
 			length--;
+			puts(name);
+			puts(tmp->key);
 		if (ft_strncmp(tmp->key, name, length) == 0)
 		{
+			puts("[DEBUG]");
 			if (name[length] == '+')
 				tmp->value = ft_strjoin(tmp->value, value);
-			else if (tmp->key[length] == '=' && tmp->key[length + 1] == '\0')
+			if (name[length] == '=' && name[length + 1] == '\0')
+				tmp->value[0] = '\0';
+			else
 				tmp->value = value;
 			return (1);
 		}

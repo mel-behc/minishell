@@ -17,7 +17,8 @@ static void	print_vars(t_env *var)
 	int	length;
 
 	length = ft_strlen(var->key);
-	if ((var->key[length - 1] == '=' && var->key[length] == '\0') || ft_strlen(var->value) > 0)
+	if ((var->key[length - 1] == '=' && var->key[length] == '\0') || \
+			ft_strlen(var->value) > 0)
 	{
 		ft_putstr_fd(var->key, 1);
 		if (var->value[0] != '\0')
